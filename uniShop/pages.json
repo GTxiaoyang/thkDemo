@@ -1,0 +1,71 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+            "path" : "pages/home/home",
+            "style" :                                                                                    
+            {
+ 
+            }
+            
+        }
+        ,{
+            "path" : "pages/cate/cate",
+            "style" :                                                                                    
+            {
+
+            }
+            
+        }
+        ,{
+            "path" : "pages/cart/cart",
+            "style" :                                                                                    
+            {
+
+            }
+            
+        }
+        ,{
+            "path" : "pages/my/my",
+            "style" :                                                                                    
+            {
+
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "小样优购",
+		"navigationBarBackgroundColor": "#C00000",
+		"backgroundColor": "#FFFFFF"
+	},
+	"tabBar":{
+		"selectedColor": "#d81e06",
+		"list":[
+			{
+				"pagePath":"pages/home/home",
+				"text":"首页",
+				"iconPath":"static/tabbar/home.png",
+				"selectedIconPath":"static/tabbar/home2.png"
+			},
+			{
+				"pagePath":"pages/cate/cate",
+				"text":"分类",
+				"iconPath":"static/tabbar/cate.png",
+				"selectedIconPath":"static/tabbar/cate2.png"
+			},
+			{
+				"pagePath":"pages/cart/cart",
+				"text":"购物",
+				"iconPath":"static/tabbar/cart.png",
+				"selectedIconPath":"static/tabbar/cart2.png"
+			},
+			{
+				"pagePath":"pages/my/my",
+				"text":"我的",
+				"iconPath":"static/tabbar/my.png",
+				"selectedIconPath":"static/tabbar/my2.png"
+			}
+		]
+	}
+}
