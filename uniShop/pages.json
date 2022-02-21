@@ -33,7 +33,7 @@
             
         }
     ],
-	"globalStyle": {
+	"globalStyle": {//总的header部分
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "小样优购",
 		"navigationBarBackgroundColor": "#C00000",
@@ -67,5 +67,18 @@
 				"selectedIconPath":"static/tabbar/my2.png"
 			}
 		]
-	}
+	},
+	"subPackages":[{//分包
+		"root":"subpkg",
+		"pages":[{
+                    "path" : "goods_detail/goods_detail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
+	}]
 }
