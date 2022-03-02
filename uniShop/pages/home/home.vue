@@ -2,7 +2,7 @@
 	<view>
 		<!-- 轮播图 -->
 		<swiper :indicator-dots="true" indicator-active-color="#d81e06" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
-			<swiper-item v-for="(item,index) in swiperData" :key="index">
+			<swiper-item class="sitem" v-for="(item,index) in swiperData" :key="index">
 				<navigator :url="'/subpkg/goods_detail/goods_detail?goods_detail='+ item.goods_id" >
 					<img class="lbtImage" :src="item.image_src">
 				</navigator>
@@ -99,9 +99,14 @@
 <style lang="scss">
 swiper{
 	height: 330rpx;
-	.swiper-item,.lbtImage{
+	width: 100%;
+	swiper-item{
 		width: 100%;
 		height: 100%;
+		.lbtImage{
+			width: 100%;
+			height: 330rpx;
+		}
 	}
 }
 // 导航区
