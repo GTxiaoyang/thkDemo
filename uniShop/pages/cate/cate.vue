@@ -2,11 +2,11 @@
 	<view class="cate">
 		<!-- 左侧滑动区  start-->
 		<scroll-view class="left_scroll" scroll-y :style="{height: wh + 'px'}" >
-			<template v-for="(item,i) in leftList" :key="i">
+			<block v-for="(item,i) in leftList" :key="i">
 				<view :class="['left_scroll_item',i===active?'active':'']" @click="activeChange(i)">
 					{{item.cat_name}}
 				</view>
-			</template>
+			</block>
 		</scroll-view>
 		<!-- 左侧滑动区  end-->
 		
