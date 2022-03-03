@@ -11,68 +11,21 @@
 		<!-- 左侧滑动区  end-->
 		
 		<!-- 右侧滑动区 start -->
-		<scroll-view class="right_scroll" scroll-y :style="{height: wh + 'px'}">
-			<view class="right_scroll_item">
-				xxx
+		<scroll-view class="right_scroll" scroll-y :style="{height: wh + 'px'}" :scroll-top="scrollTop">
+			<view class="right_scroll_item" v-for="(item,i) in level2" :key="i">
+				<!-- 二级分类标题 -->
+				<view class="scroll_item_title">
+					/ {{item.cat_name}} /
+				</view>
+				<!-- 三级内容 start -->
+				<view class="cate-lv3-list">
+					<view class="cate-l3-item" v-for="(item3,index) in item.children" :key="index" @click="goGoodsList(item3.cat_id)">
+						<image :src="item3.cat_icon" mode=""></image>
+						<text>{{item3.cat_name}}</text>
+					</view>
+				</view>
+				<!-- 三级内容 end -->
 			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-			<view class="right_scroll_item">
-				xxx
-			</view>
-
 		</scroll-view>
 		<!-- 右侧滑动区 end -->
 	</view>
@@ -89,6 +42,10 @@
 				leftList:[],
 				//左侧默认选中项
 				active:0,
+				//二级分类
+				level2:[],
+				//设置右侧滚动条位置  用来重置高度
+				scrollTop:0,
 			};
 		},
 		onLoad() {
@@ -104,11 +61,23 @@
 				const {data:res} =await getLeftListFn()
 				if(res.meta.status!==200) return uni.$showMsg()
 				this.leftList=res.message
+				// 获取二级分类
+				this.level2=res.message[0].children
 			},
 			// 切换左侧选中项
 			activeChange(i){
 				this.active=i
+				// 切换 获取二级分类
+				this.level2=this.leftList[i].children
+				//重置右侧分类滚动条位置
+				this.scrollTop=this.scrollTop==0?0.5:0
 			},
+			//点击三级类容，跳转商品页面
+			goGoodsList(id){
+				uni.navigateTo({
+					url:`/subpkg/goods_list/goods_list?cid=${id}`
+				})
+			}
 		}
 	}
 </script>
@@ -143,7 +112,31 @@
 	.right_scroll{
 		flex: 1;
 		.right_scroll_item{
-			
+			.scroll_item_title{
+				font-size: 12px;
+				font-weight: blod;
+				text-align: center;
+				padding: 15px 0;
+			}
+			.cate-lv3-list{
+				display: flex;
+				flex-wrap: wrap;
+				.cate-l3-item{
+					width: 33.33%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					margin-bottom: 10px;
+					image{
+						width: 60px;
+						height: 60px;
+					}
+					text{
+						font-size: 12px;
+					}
+				}
+			}
 		}
 	}
 }
