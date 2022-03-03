@@ -1,33 +1,37 @@
 <template>
-	<view class="cate">
-		<!-- 左侧滑动区  start-->
-		<scroll-view class="left_scroll" scroll-y :style="{height: wh + 'px'}" >
-			<block v-for="(item,i) in leftList" :key="i">
-				<view :class="['left_scroll_item',i===active?'active':'']" @click="activeChange(i)">
-					{{item.cat_name}}
-				</view>
-			</block>
-		</scroll-view>
-		<!-- 左侧滑动区  end-->
-		
-		<!-- 右侧滑动区 start -->
-		<scroll-view class="right_scroll" scroll-y :style="{height: wh + 'px'}" :scroll-top="scrollTop">
-			<view class="right_scroll_item" v-for="(item,i) in level2" :key="i">
-				<!-- 二级分类标题 -->
-				<view class="scroll_item_title">
-					/ {{item.cat_name}} /
-				</view>
-				<!-- 三级内容 start -->
-				<view class="cate-lv3-list">
-					<view class="cate-l3-item" v-for="(item3,index) in item.children" :key="index" @click="goGoodsList(item3.cat_id)">
-						<image :src="item3.cat_icon" mode=""></image>
-						<text>{{item3.cat_name}}</text>
+	<view>
+		<!-- 使用自定义组件 -->
+		<my-search></my-search>
+		<view class="cate">
+			<!-- 左侧滑动区  start-->
+			<scroll-view class="left_scroll" scroll-y :style="{height: wh + 'px'}" >
+				<block v-for="(item,i) in leftList" :key="i">
+					<view :class="['left_scroll_item',i===active?'active':'']" @click="activeChange(i)">
+						{{item.cat_name}}
 					</view>
+				</block>
+			</scroll-view>
+			<!-- 左侧滑动区  end-->
+			
+			<!-- 右侧滑动区 start -->
+			<scroll-view class="right_scroll" scroll-y :style="{height: wh + 'px'}" :scroll-top="scrollTop">
+				<view class="right_scroll_item" v-for="(item,i) in level2" :key="i">
+					<!-- 二级分类标题 -->
+					<view class="scroll_item_title">
+						/ {{item.cat_name}} /
+					</view>
+					<!-- 三级内容 start -->
+					<view class="cate-lv3-list">
+						<view class="cate-l3-item" v-for="(item3,index) in item.children" :key="index" @click="goGoodsList(item3.cat_id)">
+							<image :src="item3.cat_icon" mode=""></image>
+							<text>{{item3.cat_name}}</text>
+						</view>
+					</view>
+					<!-- 三级内容 end -->
 				</view>
-				<!-- 三级内容 end -->
-			</view>
-		</scroll-view>
-		<!-- 右侧滑动区 end -->
+			</scroll-view>
+			<!-- 右侧滑动区 end -->
+		</view>
 	</view>
 </template>
 
@@ -51,7 +55,7 @@
 		onLoad() {
 			// 当前设备可用高度
 			const sysInfo=uni.getSystemInfoSync()
-			this.wh=sysInfo.windowHeight
+			this.wh=sysInfo.windowHeight-50
 			// 加载 左侧列表内容
 			this.getLeftList()
 		},

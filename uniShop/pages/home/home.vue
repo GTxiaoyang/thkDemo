@@ -8,7 +8,6 @@
 				</navigator>
 			</swiper-item>
 		</swiper>
-		
 		<!-- 导航区 -->
 		<view class="nav-list">
 			<view class="nav-item" v-for="(item,i) in navList" :key="i" @click="navClickHandler(item)">
@@ -137,7 +136,6 @@ swiper{
 				justify-content: space-around;
 			}
 		}
-
 	}
 }
 </style>
