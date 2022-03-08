@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 使用自定义组件 -->
-		<my-search></my-search>
+		<my-search @click="goToSearch()"></my-search>
 		<view class="cate">
 			<!-- 左侧滑动区  start-->
 			<scroll-view class="left_scroll" scroll-y :style="{height: wh + 'px'}" >
@@ -80,6 +80,12 @@
 			goGoodsList(id){
 				uni.navigateTo({
 					url:`/subpkg/goods_list/goods_list?cid=${id}`
+				})
+			},
+			//点击收缩组件，跳转搜索页
+			goToSearch(){
+				uni.navigateTo({
+					url:'/subpkg/search/search'
 				})
 			}
 		}

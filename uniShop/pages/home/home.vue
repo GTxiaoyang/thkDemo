@@ -1,5 +1,9 @@
 <template>
 	<view>
+		<!-- 搜索吸顶 -->
+		<view class="searchBox">
+			<my-search @click="goToSearch()"></my-search>
+		</view>
 		<!-- 轮播图 -->
 		<swiper :indicator-dots="true" indicator-active-color="#d81e06" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
 			<swiper-item class="sitem" v-for="(item,index) in swiperData" :key="index">
@@ -90,6 +94,12 @@
 					})
 				})
 				this.floorList=res.message
+			},
+			//点击收缩组件，跳转搜索页
+			goToSearch(){
+				uni.navigateTo({
+					url:'/subpkg/search/search'
+				})
 			}
 		}
 	}
@@ -107,6 +117,12 @@ swiper{
 			height: 330rpx;
 		}
 	}
+}
+//搜索框吸顶
+.searchBox{
+	position: sticky;
+	top: 0;
+	z-index: 999;
 }
 // 导航区
 .nav-list{
