@@ -1,7 +1,7 @@
 <template>
 	<view class="search">
 		<view class="search-box">
-			<uni-search-bar @input="input()" focus="true" :radius="100" cancelButton="none"></uni-search-bar>
+			<uni-search-bar @input="input()" :focus="true" :radius="100" cancelButton="none"></uni-search-bar>
 		</view>
 	</view>
 </template>
