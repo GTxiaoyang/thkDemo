@@ -14,13 +14,13 @@
 		</view>
 		<!-- 搜索历史 -->
 		<view class="history-box" v-else>
-			<view class="history-title">
+			<view class="history-title" v-if="show">
 				<text>搜索历史</text>
-				<uni-icons type="trash" size="17"></uni-icons>
+				<uni-icons type="trash" size="17" @click="clean()"></uni-icons>
 			</view>
 			<view class="history-list">
 				<view class="item" v-for="(item,i) in history" :key="i">
-					<uni-tag type="default" :text="item" ></uni-tag>
+					<uni-tag type="default" :text="item" @click="gotoGoodsList(item)"></uni-tag>
 				</view>
 			</view>
 		</view>
@@ -39,7 +39,13 @@
 				searchList:[],
 				//搜索历史
 				historyList:[],
+				//显示搜索历史
+				show:false,
 			};
+		},
+		onLoad() {
+			this.historyList=JSON.parse(uni.getStorageSync('kw') || '[]')
+			this.historyList.length>0?this.show=true:this.show=false
 		},
 		computed: {
 			history(){
@@ -73,11 +79,25 @@
 				set.delete(this.kw)
 				set.add(this.kw)
 				this.historyList=Array.from(set)
+				uni.setStorageSync('kw',JSON.stringify(this.historyList))
+				this.historyList.length>0?this.show=true:this.show=false
 			},
 			//去往商品详情页
 			gotoDetail(item){
 				uni.navigateTo({
 					url:"/subpkg/goods_detail/goods_detail?goods_id="+item.goods_id
+				})
+			},
+			//清楚搜索记录
+			clean(){
+				this.historyList=[]
+				uni.setStorageSync('kw','[]')
+				this.show=false
+			},
+			//点击搜索记录，去往商品
+			gotoGoodsList(item){
+				uni.navigateTo({
+					url:'/subpkg/goods_list/goods_list?query='+ item
 				})
 			}
 		}
