@@ -64,7 +64,7 @@
 			async getSearchList() {
 				// 判断关键词是否为空
 				if (this.kw == '') {
-					this.searchResults = []
+					this.searchList = []
 					return
 				}
 				// 发起请求，获取搜索建议列表
