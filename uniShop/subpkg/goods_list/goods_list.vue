@@ -1,23 +1,13 @@
 <template>
 	<view>
 		<view class="goods_list">
-			<block v-for="(item,i) in goodsList" :key="i">
-				<view class="goods_item">
-					<view class="goods_lf">
-						<image :src="item.goods_small_logo || defaultPic" class="goods_pic" mode=""></image>
-					</view>
-					<view class="goods_rg">
-						<view class="goods_name">
-							{{item.goods_name}}
-						</view>
-						<view class="goods_info">
-							<view class="goods_price">
-								￥{{item.goods_price}}
-							</view>
-						</view>
-					</view>
-				</view>
-			</block>
+			<view v-for="(item,i) in goodsList" :key="i" @click="gotoDetail(item)">
+				<my-goods :goods="item"></my-goods>
+			</view>
+			<!-- 加载完毕提示 -->
+			<view class="over" v-if="isShow">
+				没有更多内容啦~~~
+			</view>
 		</view>
 	</view>
 </template>
@@ -37,7 +27,11 @@
 				//商品数据
 				goodsList:[],
 				total:0,
-				defaultPic: 'https://img3.doubanio.com/f/movie/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/movie/celebrity-default-medium.png',
+				//关闭节流阀
+				isloading:false,
+				//数据加载完毕,提示文字
+				isShow:false
+				
 			}
 		},
 		onLoad(options) {
@@ -47,49 +41,61 @@
 		},
 		methods: {
 			//获取商品列表数据
-			async getGoodsList(){
+			async getGoodsList(cb){
+				//打开节流阀
+				this.isloading=true
 				const {data:res}=await	goodsList(this.queryObj)
+				//关闭节流阀
+				this.isloading=false
+				//判断是否有回调函数
+				cb && cb()
 				if(res.meta.status !==200) return uni.$showMsg()
-				this.goodsList=res.message.goods
+				this.goodsList=[...this.goodsList,...res.message.goods]
 				this.total=res.message.total
 			},
+			//跳转
+			gotoDetail(item){
+				uni.navigateTo({
+					url:"/subpkg/goods_detail/goods_detail?goods_id=" + item.goods_id
+				})
+			},
 		},
+		//上拉触底事件
+		onReachBottom() {
+			//判断数据是否加载完毕
+			if(this.queryObj.pagenum*this.queryObj.pagesize >=this.total){
+				this.isShow=true
+				return uni.$showMsg("数据加载完毕")
+			}
+			//节流阀打开，不发起请求
+			if(this.isloading) return
+			//让页码自增+1
+			this.queryObj.pagenum++
+			this.getGoodsList()
+		},
+		//下拉刷新
+		onPullDownRefresh() {
+			//重置关键数据
+			this.queryObj.pagenum=1
+			this.total=0
+			this.isloading=false
+			this.goodsList=[]
+			this.isShow=false
+			//重新发起数据请求
+			this.getGoodsList(()=>uni.stopPullDownRefresh())
+		}
 	}
 </script>
 
 <style lang="scss" scoped>
 .goods_list{
-	.goods_item{
-		display: flex;
-		padding: 10px 8px;
-		border-bottom: 1px solid #F0F0F0;
-		box-sizing: border-box;
+	.over{
 		width: 100vw;
-		.goods_lf{
-			width: 30vw;
-			.goods_pic{
-				width: 100px;
-				height: 100px;
-				display: block;
-			}
-		}
-		.goods_rg{
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			.goods_name{
-				font-size: 13px;
-			}
-			.goods_info{
-				.goods_price{
-					color: #c00000;
-					font-size: 16px;
-					text-align: right;
-					line-height: 24px;
-				}
-			}
-		}
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		font-size: 12px;
+		color: #D8D8D8;
 	}
 }
 </style>
