@@ -41,8 +41,10 @@
 </template>
 
 <script>
+	import badgeMix from "../../mixins/tabbar-badge.js"
 	import {getSwiperdataFn,getNavListFn,getfloorFn} from '../../api/api.js'
 	export default {
+		mixins:[badgeMix],
 		data() {
 			return {
 				// 轮播图
