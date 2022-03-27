@@ -9,10 +9,13 @@ export default {
 	},
 	methods:{
 		setBadge(){
-			uni.setTabBarBadge({
-				index:2,
-				text:String(this.total)
-			})
+			//购物车数量不等于0才显示
+			if(this.total){
+				uni.setTabBarBadge({
+					index:2,
+					text:String(this.total)
+				})
+			}
 		}
 	}
 }

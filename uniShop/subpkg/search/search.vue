@@ -1,7 +1,7 @@
 <template>
 	<view class="search">
 		<view class="search-box">
-			<uni-search-bar @input="input()" :focus="true" :radius="100" cancelButton="none"></uni-search-bar>
+			<uni-search-bar v-model="kw" @input="input()" :focus="true" :radius="100" cancelButton="none"></uni-search-bar>
 		</view>
 		<!-- 搜索建议列表 -->
 		<view class="sugg-list" v-if="searchList.length>0">
@@ -54,7 +54,6 @@
 		},
 		methods:{
 			input(value){
-				this.kw=value
 				clearTimeout(this.timer)
 				this.timer=setTimeout(()=>{
 					this.getSearchList()									
