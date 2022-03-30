@@ -7,6 +7,11 @@ export default {
 	computed:{
 		...mapGetters('m_cart',['total'])
 	},
+	watch:{
+		total(){
+			this.setBadge()
+		}
+	},
 	methods:{
 		setBadge(){
 			//购物车数量不等于0才显示

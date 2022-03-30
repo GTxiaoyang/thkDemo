@@ -12,7 +12,7 @@
 				<view class="goods_price">
 					￥{{goods.goods_price | tofixed}}
 				</view>
-				<uni-number-box v-if="showNum" :min="1" :max="9999" :value="goods.goods_count" @change="changeValue" />
+				<uni-number-box v-if="showNum" :min="1" :max="9999" v-model="goods.goods_count" @change="changeValue" />
 			</view>
 		</view>
 	</view>
@@ -60,15 +60,7 @@
 					goods_count:Number(val)
 				})
 			},
-			//修改不规则内容,转化为 1
-			// editNum(val){
-			// 	let value=parseInt(val.detail.value)
-			// 	if(!value){
-			// 		val.detail.value=1
-			// 		this.$forceUpdate();
-			// 		return
-			// 	}
-			// }
+
 		}
 	}
 </script>
