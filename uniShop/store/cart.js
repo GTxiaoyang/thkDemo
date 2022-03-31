@@ -34,6 +34,11 @@ export default{
 				findResult.goods_count=goods.goods_count
 				this.commit('m_cart/saveToStorage')
 			}
+		},
+		//删除商品
+		removeGoods(state,goods){
+			state.cart=state.cart.filter(item=>item.goods_id!=goods.goods_id)
+			this.commit("m_cart/saveToStorage")
 		}
 	},
 	getters:{
