@@ -10,6 +10,7 @@ export default {
 	watch:{
 		total(){
 			this.setBadge()
+			console.log(this.total)
 		}
 	},
 	methods:{
@@ -19,6 +20,10 @@ export default {
 				uni.setTabBarBadge({
 					index:2,
 					text:String(this.total)
+				})
+			}else{
+				uni.removeTabBarBadge({
+					index:2,
 				})
 			}
 		}
