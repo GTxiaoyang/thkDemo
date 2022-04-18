@@ -1,5 +1,5 @@
 <template>
-	<view class="cart">
+	<view class="cart" v-if="cart.length>0">
 		<!-- 收获地址 -->
 		<my-address></my-address>
 		<!-- 标题 -->
@@ -15,6 +15,13 @@
 				</uni-swipe-action-item>
 			</block>
 		</uni-swipe-action>
+		<!-- 使用自定义结算组件 -->
+		<my-settle></my-settle>
+	</view>
+	<!-- 购物车空白时 -->
+	<view class="empty" v-else>
+		<image src="../../static/empty.jpg"></image>
+		<text>空空如也~</text>
 	</view>
 </template>
 
@@ -54,6 +61,7 @@
 
 <style lang="scss">
 .cart{
+	padding-bottom: 50px;
 	.cart-title{
 		height: 40px;
 		display: flex;
@@ -64,6 +72,24 @@
 			font-size: 14px;
 			margin-left: 10px;
 		}
+	}
+}
+.empty{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 92vw;
+	margin:auto;
+	text-align: center;
+	padding-top: 20vh;
+	img{
+		width: 100%;
+	}
+	text{
+		text-align: center;
+		font-size: 14px;
+		color: #e8e8e8;
 	}
 }
 </style>

@@ -2,7 +2,7 @@
 	<view class="address">
 		<button v-if="JSON.stringify(address)=='{}'" type="primary" size="mini" class="add_address" @click="addAddress()">请选择收货地址+</button>
 		<!-- 收货地址 -->
-		<view class="addressInfo" v-else>
+		<view class="addressInfo" v-else @click="addAddress()">
 			<view class="row1">
 				<view class="lf">
 					收货人：<text>{{address.userName}}</text>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-	import {mapState,mapMutations} from "vuex"
+	import {mapState,mapMutations,mapGetters} from "vuex"
 	export default {
 		name:"my-address",
 		data() {
@@ -39,13 +39,7 @@
 		},
 		computed:{
 			...mapState("m_user",['address']),
-			addstr(){
-				if(!this.address.provinceName){
-					return ''
-				}else{
-					return this.address.provinceName+ this.address.cityName+ this.address.countyName+ this.address.detailInfo
-				}
-			}
+			...mapGetters("m_user",['addstr'])
 		}
 	}
 </script>
