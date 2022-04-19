@@ -12,3 +12,5 @@ export const searchFn = params=> uni.$http.get('api/public/v1/goods/qsearch',par
 export const goodsList = params=> uni.$http.get('api/public/v1/goods/search',params)
 //商品详情
 export const goodsDetail = params=> uni.$http.get('api/public/v1/goods/detail',params)
+//登录
+export const login = params=> uni.$http.post('api/public/v1/users/wxlogin',params)
